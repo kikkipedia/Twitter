@@ -11,7 +11,7 @@ export default class Signup extends React.Component {
     }
     
     handleSend = () => {
-        fetch("http://localhost:8080/users/add", {
+        fetch("http://ec2-13-48-47-134.eu-north-1.compute.amazonaws.com:8080/users/add", {
             method: "POST",
             headers: {
                 Accept: "application/json", "Content-Type": "application/json"

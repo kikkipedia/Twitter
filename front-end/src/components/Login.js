@@ -14,7 +14,7 @@ export default class Login extends React.Component {
     }
 
     componentDidMount = () => {
-        fetch("http://localhost:8080/users/all")
+        fetch("http://ec2-13-48-47-134.eu-north-1.compute.amazonaws.com:8080/users/all")
         .then(res => res.json())
         .then((res) => {
             this.setState ({ users: res })
@@ -44,7 +44,7 @@ export default class Login extends React.Component {
         }
         else if (user === username && passwordInput === password) {
             console.log ("Login success: " + user, password, id)
-            this.props.handleSuccessfulAuth(user.data)
+            //this.props.handleSuccessfulAuth(user.data)
         }
         else {
             console.log("Username/password not valid")
