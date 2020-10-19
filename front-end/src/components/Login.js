@@ -32,24 +32,21 @@ export default class Login extends React.Component {
     handleLogin = (e) => {
         console.log(this.state.users)
         e.preventDefault()
-        var user = this.state.users[0].username
-        var password = this.state.users[0].password
-        var id = this.state.users[0].id
+        var users = this.state.users
         var username = this.state.username
         var passwordInput = this.state.password
-        this.setState({id: this.state.users[0].id})
-        if (username === "" && passwordInput === "") {
+
+        var user = users.find(el => el.username === username && el.password === passwordInput)
+        if (user === undefined) {
             console.log("error")
-            
-        }
-        else if (user === username && passwordInput === password) {
-            console.log ("Login success: " + user, password, id)
-            //this.props.handleSuccessfulAuth(user.data)
         }
         else {
-            console.log("Username/password not valid")
+            console.log(user)
+            this.props.handleSuccessfulAuth(user.data)
         }
+        
     }
+
 
     render() {
 
