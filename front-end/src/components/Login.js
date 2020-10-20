@@ -14,7 +14,7 @@ export default class Login extends React.Component {
     }
 
     componentDidMount = () => {
-        fetch("http://ec2-13-48-47-134.eu-north-1.compute.amazonaws.com:8080/users/all")
+        fetch("http://localhost:8080/users/all")
         .then(res => res.json())
         .then((res) => {
             this.setState ({ users: res })
@@ -30,6 +30,7 @@ export default class Login extends React.Component {
 
     // function(s) that serarches users for correct and matches password
     handleLogin = (e) => {
+
         console.log(this.state.users)
         e.preventDefault()
         var users = this.state.users
