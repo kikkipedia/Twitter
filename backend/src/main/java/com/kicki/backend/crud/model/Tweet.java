@@ -1,9 +1,7 @@
 package com.kicki.backend.crud.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table (name = "tweets")
@@ -12,24 +10,25 @@ public class Tweet extends Audit {
 	private static final long serialVersionUID = 2455903507187330507L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="tweetsId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
 	private Integer id;
 	
 	@Column(name="tweet")
 	private String tweet;
 	
+	//@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
-	private User username;
+	private User user;
 	
 	public Tweet() {
 		
 	}
 
-	public Tweet(String tweet, User username) {
+	public Tweet(String tweet, User user) {
 		this.tweet = tweet;
-		this.username = username;
+		this.user = user;
 	}
 
 	public Integer getId() {
@@ -49,11 +48,11 @@ public class Tweet extends Audit {
 	}
 
 	public User getUser() {
-		return username;
+		return user;
 	}
 
-	public void setUser(User username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 

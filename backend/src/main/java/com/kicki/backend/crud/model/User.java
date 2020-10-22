@@ -1,9 +1,8 @@
 package com.kicki.backend.crud.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -11,24 +10,23 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class User {
 	
   	@Id // primary key
-	@GeneratedValue(strategy = GenerationType.AUTO)
-  	@Column(name="userId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+  	@Column(name="id")
 	private Integer id;
 	
   	@Column(name="username")
-	@NotNull
+	//@NotNull
 	private String username;
 	
 	@Column(name="password")
-  	@NotNull
+  	//@NotNull
 	private String password;
 
 	@Column(name="bio")
 	private String bio;
 	
-	@JsonManagedReference
+	//@JsonManagedReference
 	@OneToMany (targetEntity = Tweet.class, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "tweets_id")
 	private List<Tweet> tweet; // stores the list of tweets
 	
 	// TODO: OneToMany - Following
