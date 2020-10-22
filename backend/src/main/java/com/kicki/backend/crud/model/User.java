@@ -4,7 +4,9 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity // makes a table of the class User
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity
 @Table (name = "user")
 public class User {
 	
@@ -24,9 +26,10 @@ public class User {
 	@Column(name="bio")
 	private String bio;
 	
+	@JsonManagedReference
 	@OneToMany (targetEntity = Tweet.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
-	private List<Tweet> tweets; // stores the list of tweets
+	//@JoinColumn(name = "tweets_id")
+	private List<Tweet> tweet; // stores the list of tweets
 	
 	// TODO: OneToMany - Following
 	
@@ -66,10 +69,10 @@ public class User {
 			this.bio = bio;
 		}
 		public List<Tweet> getTweets() {
-			return tweets;
+			return tweet;
 		}
 	
-		public void setTweets(List <Tweet> tweets) {
-			this.tweets = tweets;
+		public void setTweets(List <Tweet> tweet) {
+			this.tweet = tweet;
 		}
 }

@@ -21,15 +21,15 @@ public class Tweet extends Audit {
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
-	private User user;
+	private User username;
 	
 	public Tweet() {
 		
 	}
 
-	public Tweet(String tweet, User user) {
+	public Tweet(String tweet, User username) {
 		this.tweet = tweet;
-		this.user = user;
+		this.username = username;
 	}
 
 	public Integer getId() {
@@ -49,11 +49,11 @@ public class Tweet extends Audit {
 	}
 
 	public User getUser() {
-		return user;
+		return username;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(User username) {
+		this.username = username;
 	}
 	
 
