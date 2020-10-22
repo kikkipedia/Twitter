@@ -1,71 +1,75 @@
 package com.kicki.backend.crud.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-//import org.hibernate.annotations.OnDelete;
-//import org.hibernate.annotations.OnDeleteAction;
-//
-//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // makes a table of the class User
 @Table (name = "user")
 public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
 	
+  	@Id // primary key
+	@GeneratedValue(strategy = GenerationType.AUTO)
+  	@Column(name="userId")
+	private Integer id;
+	
+  	@Column(name="username")
 	@NotNull
 	private String username;
 	
-	@NotNull
+	@Column(name="password")
+  	@NotNull
 	private String password;
-	
+
+	@Column(name="bio")
 	private String bio;
 	
-	@OneToMany (mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<Tweets> tweets = new HashSet<>();
+	@OneToMany (targetEntity = Tweet.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private List<Tweet> tweets; // stores the list of tweets
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
+	// TODO: OneToMany - Following
+	
+	public User() {
+		
 	}
 	
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
+	public User(String username, String password, String bio) {
+		super();
 		this.username = username;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getBio() {
-		return bio;
-	}
-
-	public void setBio(String bio) {
 		this.bio = bio;
 	}
 	
-	public Set<Tweets> getTweets() {
-		return tweets;
-	}
-	
-	public void setTweets(Set<Tweets> tweets) {
-		this.tweets = tweets;
-		for (Tweets t : tweets) {
-			t.setUser(this);
+	public Integer getId() {
+			return id;
 		}
-	}
+		public void setId(Integer id) {
+			this.id = id;
+		}
+		public String getUsername() {
+			return username;
+		}
+		public void setUsername(String username) {
+			this.username = username;
+		}
+		public String getPassword() {
+			return password;
+		}
+		public void setPassword(String password) {
+			this.password = password;
+		}
+		public String getBio() {
+			return bio;
+		}
+		public void setBio(String bio) {
+			this.bio = bio;
+		}
+		public List<Tweet> getTweets() {
+			return tweets;
+		}
+	
+		public void setTweets(List <Tweet> tweets) {
+			this.tweets = tweets;
+		}
 }
