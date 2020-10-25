@@ -1,65 +1,42 @@
-import React from 'react'
+import React, {useState, useContext} from 'react'
 import {Card,Form,Button,Col, Row, Container} from "react-bootstrap"
+import {authContext} from '../context/AuthContext'
+import { useHistory } from 'react-router-dom'
 
-export default class Login extends React.Component {
-    constructor(props) {
-        super(props)
-        this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
-        this.state = {
-            users: [],
-            username: "",
-            password: "",
-            id: "",
-        }
-    }
+const Login = () => {
+    const [username, setUsername] = useState()
+    const [password, setPassword] = useState()
+    const {setAuthData} = useContext(authContext)
+    const history = useHistory()
 
-    componentDidMount = () => {
+    // function that serarches users for correct and matches password
+    const handleLogin = (e) => {
+        e.preventDefault()
+        //const users = []
         fetch("http://localhost:8080/users/all")
         .then(res => res.json())
-        .then((res) => {
-            this.setState ({ users: res })
+        .then(data => {
+            console.log(data)
+            var user = data.find(el => el.username === username)
+            if (user === undefined) {
+                console.log("error")
+            }
+            else {
+                console.log(user)
+                setAuthData(username)
+                history.replace("/")
+            }    
         })
+            
     }
-
-    handleSuccessfulAuth(data) {
-        //TODO update parent component app.js
-        this.props.history.push("/tweets") //after login success
-    }
-
-
-
-    // function(s) that serarches users for correct and matches password
-    handleLogin = (e) => {
-
-        console.log(this.state.users)
-        e.preventDefault()
-        var users = this.state.users
-        var username = this.state.username
-        var passwordInput = this.state.password
-
-        var user = users.find(el => el.username === username && el.password === passwordInput)
-        if (user === undefined) {
-            console.log("error")
-        }
-        else {
-            console.log(user)
-            this.props.handleSuccessfulAuth(user.data)
-        }
-        
-    }
-
-
-    render() {
 
 
         return(
             <div>
         <Container>
           <Row>
-            <Col></Col>
             <Col>
-            <br/>
-            <br/>
+
             <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><h3>Login</h3></Card.Header>
                     <Card.Body>
@@ -70,8 +47,8 @@ export default class Login extends React.Component {
                                     type="text"
                                     id = "username"
                                     name = "username"
-                                    value={this.state.value}
-                                    onChange= {e => this.setState({username: e.target.value})}
+                                    /* value={this.state.value} */
+                                    onChange= {e => setUsername(e.target.value)}
                                     className={"bg-dark text-white"}
                                     placeholder= "Username" />
                                     <Form.Label>Password</Form.Label>
@@ -79,21 +56,18 @@ export default class Login extends React.Component {
                                     type="text"
                                     id = "password"
                                     name = "password"
-                                    value={this.state.value}
-                                    onChange= {e => this.setState({password: e.target.value})}
+                                    /* value={this.state.value} */
+                                    onChange= {e => setPassword(e.target.value)}
                                     className={"bg-dark text-white"}
                                     placeholder= "Password" />
                                 </Form.Group>
                             </Form.Row>
                             <Card.Footer style={{"textAlign":"right"}}>
-                                <Button size="sm" variant="primary" onClick={this.handleLogin}>Login</Button>
+                                <Button size="sm" variant="primary" onClick={handleLogin}>Login</Button>
                             </Card.Footer>
-                        </Card.Body>
-                    
-                </Card>
-            
+                        </Card.Body>    
+                </Card>    
             </Col>
-            <Col></Col>
           </Row>
           </Container>
             
@@ -101,4 +75,4 @@ export default class Login extends React.Component {
     
         )
     }
-}
+export default Login

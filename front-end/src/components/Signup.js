@@ -23,19 +23,18 @@ export default class Signup extends React.Component {
         })
         .then((response) => response.json())
         .then(response => {
-            //TODO: if-registration = success:
-            console.log("response: " + response.data)
-            this.props.handleSuccessfulAuth(response.data)
+            console.log("success")
+            //TODO ---> HomePage with props
+        }).catch(error => {
+            console.log(error)
         })
     }
     
     render() {
         return (
             <div>
-                <br/>
                 <Container>
                     <Row>
-                <Col></Col>
                 <Col>
                 <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><h3>Register</h3></Card.Header>
@@ -65,7 +64,6 @@ export default class Signup extends React.Component {
                         </Card.Body>
                     </Form>
                 </Card></Col>
-                <Col></Col>
                 </Row>
                 </Container>
             </div>
