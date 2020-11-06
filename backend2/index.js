@@ -4,7 +4,7 @@ const mysqlURL = "http://ec2-13-48-47-134.eu-north-1.compute.amazonaws.com:8080"
 const connection = mysql.createConnection({
     host: mysqlURL,
     user: 'root',
-    password: 'TheSuperPassword',
+    password: '********',
     database: 'twitter'
 })
 
