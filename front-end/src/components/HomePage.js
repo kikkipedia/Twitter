@@ -18,7 +18,7 @@ const HomePage = () => {
             <Row>
                 <Col>
                     <Container>
-                        <h2 className="text-center">{`Welcome ${auth.data}`} </h2>
+                        <h2 className="text-center">{`Welcome ${auth.data.username}`} </h2>
                         <Profile/>
                         <Button onClick={onLogOut}>Logout</Button>
                     </Container>

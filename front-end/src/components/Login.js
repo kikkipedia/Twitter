@@ -9,11 +9,9 @@ const Login = () => {
     const {setAuthData} = useContext(authContext)
     const history = useHistory()
 
-    // function that serarches users for correct and matches password
     const handleLogin = (e) => {
         e.preventDefault()
-        //const users = []
-        fetch("http://localhost:8080/users/all")
+        fetch("https://6z4gbjcjfl.execute-api.eu-north-1.amazonaws.com/default/node-api/users/all")
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -23,11 +21,10 @@ const Login = () => {
             }
             else {
                 console.log(user)
-                setAuthData(username)
+                setAuthData(user)
                 history.replace("/")
             }    
-        })
-            
+        })            
     }
 
 
@@ -47,7 +44,6 @@ const Login = () => {
                                     type="text"
                                     id = "username"
                                     name = "username"
-                                    /* value={this.state.value} */
                                     onChange= {e => setUsername(e.target.value)}
                                     className={"bg-dark text-white"}
                                     placeholder= "Username" />
@@ -56,7 +52,6 @@ const Login = () => {
                                     type="text"
                                     id = "password"
                                     name = "password"
-                                    /* value={this.state.value} */
                                     onChange= {e => setPassword(e.target.value)}
                                     className={"bg-dark text-white"}
                                     placeholder= "Password" />

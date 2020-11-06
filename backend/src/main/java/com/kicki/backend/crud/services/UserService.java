@@ -1,5 +1,9 @@
 package com.kicki.backend.crud.services;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,23 +31,31 @@ public class UserService {
 		newUser.setBio(user.getBio());
 		newUser.setTweets(user.getTweets());
 		User savedUser = userRepository.save(newUser);
+		Map<String,String> response = new HashMap<String, String>();		
 		if(userRepository.findById(savedUser.getId()).isPresent()) {
-			return ResponseEntity.accepted().body("Successfully created");
+			response.put("ok", "success saving data");
+			return ResponseEntity.accepted().body(response);
 		}
 		else 
-			return ResponseEntity.unprocessableEntity().body("Failed to create user");
+			response.put("error", "Failed to create user");
+			return ResponseEntity.unprocessableEntity().body(response);
 	}
 	//Deletes user
 	public ResponseEntity<Object> deleteUser(Integer id) {
+		Map<String,String> response = new HashMap<String, String>();
 		if(userRepository.findById(id).isPresent()) {
 			userRepository.deleteById(id);
 			if(userRepository.findById(id).isPresent()) {
-				return ResponseEntity.unprocessableEntity().body("Failed to delete user");
+				response.put("error", "Failed to delete user");
+				return ResponseEntity.unprocessableEntity().body(response);
 			}
-			else return ResponseEntity.ok().body("Deleted successfully");
+			else 
+				response.put("ok", "success deleting data");
+				return ResponseEntity.ok().body(response);
 		}
 		else
-			return ResponseEntity.unprocessableEntity().body("User not found");
+			response.put("error", "user not found");
+			return ResponseEntity.unprocessableEntity().body(response);
 	}
 
 }

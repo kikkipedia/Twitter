@@ -26,5 +26,7 @@ public class TweetsController {
 	public List<Tweet> getTweets() {
 		return tweetsRepository.findAll();
 	}
+	
+	// TODO _ POST METHOD
 }
 
